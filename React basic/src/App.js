@@ -24,7 +24,7 @@ function App() {
                 let copy = [...star];
                 copy[i] += 1;
                 setStar(copy)} }>⭐</span> {star[i]} </p>
-              { modal ? <Modal/> : null }
+              { modal ? <Modal nextMovie={nextMovie} color={'#ffccff'} setNextMovie={setNextMovie}/> : null }
           </div>
           )
         })
@@ -33,12 +33,17 @@ function App() {
   ); //App End
 }
 
-function Modal(){
+function Modal(props){
   return(
-      <div className="modal">
-        <h4>Title</h4>
+      <div className="modal" style={{background : props.color}}>
+        <h4>{props.nextMovie[0]}</h4>
         <p>Date</p>
         <p>exp</p>
+        <button onClick={()=>{
+          let temp = [...props.nextMovie];
+          temp[0] = "Ironman";
+          props.setNextMovie(temp)
+        }}>Edit</button>
       </div>
   )
 }
