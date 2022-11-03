@@ -48,12 +48,16 @@
 div {
   box-sizing: border-box;
 }
+.info{
+  text-align: right;
+  background: rgb(201, 201, 201);
+  padding: 10px;
+}
 .list{
   padding-left: 20px;
   text-align: left;
   border-bottom: 1px solid gray;
 }
-
 .modal{
   margin-top: 20px;
   padding: 20px;
