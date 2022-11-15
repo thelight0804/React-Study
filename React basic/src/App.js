@@ -1,14 +1,14 @@
 import './App.css';
 import React, { useState } from 'react';
 import { render } from '@testing-library/react';
+import dayjs from "dayjs";
 
 function App() {
-
   let [nextMovie, setNextMovie] = useState(['Ant-Man and the Wasp', 'Guardians of the Galaxy', 'The Marvels']);
   let [movieSub, setMovieSub] = useState(['Quantumania', 'Volume 3', ' ']);
   let [movieIndex, setMovieIndex] = useState(0);
   let [star, setStar] = useState([0, 0, 0]);
-  let [date, setDate] = useState(['1', '2', '3']);
+  let [date, setDate] = useState(['0', '1', '2']);
   let [modal, setModal] = useState(false);
   let [exp, setExp] = useState('');
 
@@ -28,12 +28,17 @@ function App() {
                 modal ? setModal(false) : setModal(true)
               }}>{nextMovie[i]} </h4>
               <p>{movieSub[i]}
-
               <span onClick={ (e)=>{
                 e.stopPropagation();
                 let copy = [...star];
                 copy[i] += 1;
                 setStar(copy)} }>⭐</span> {star[i]} </p>
+
+              <p>{
+                // let copy = [...date];
+                date[i]
+              }</p>
+
               <button onClick={()=>{
                 //Delete Movie title
                 let copy = [...nextMovie];
@@ -54,6 +59,7 @@ function App() {
           )
         })
       }
+      
       { modal ? <Modal nextMovie={nextMovie} movieIndex = {movieIndex} color={'#dbaaaa'} setNextMovie={setNextMovie}/> : null }
       <input value = {exp} onChange={(e)=>{
         setExp(e.target.value);
