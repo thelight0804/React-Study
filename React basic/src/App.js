@@ -4,13 +4,20 @@ import { render } from '@testing-library/react';
 import dayjs from "dayjs";
 
 function App() {
+  let setTime = () => {
+    let dj = dayjs();
+    return dj.format("YY-MM-DD (HH:mm)");
+  };
+
   let [nextMovie, setNextMovie] = useState(['Ant-Man and the Wasp', 'Guardians of the Galaxy', 'The Marvels']);
   let [movieSub, setMovieSub] = useState(['Quantumania', 'Volume 3', ' ']);
   let [movieIndex, setMovieIndex] = useState(0);
   let [star, setStar] = useState([0, 0, 0]);
-  let [date, setDate] = useState(['0', '1', '2']);
+  let [date, setDate] = useState([setTime(), setTime(), setTime()]);
   let [modal, setModal] = useState(false);
   let [exp, setExp] = useState('');
+
+
 
   return (
     <div className="App">
@@ -34,10 +41,7 @@ function App() {
                 copy[i] += 1;
                 setStar(copy)} }>⭐</span> {star[i]} </p>
 
-              <p>{
-                // let copy = [...date];
-                date[i]
-              }</p>
+              <p> {date[i]} </p>
 
               <button onClick={()=>{
                 //Delete Movie title
@@ -54,6 +58,11 @@ function App() {
                 copy = [...star];
                 copy.splice(i, 1);
                 setStar(copy);
+
+                //Delete Date
+                copy = [...date];
+                copy.splice(i, 1);
+                setDate(copy);
               }}>Delete</button>
           </div>
           )
@@ -76,9 +85,9 @@ function App() {
         setStar(copy);
 
         //add date
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
         copy = [...date];
+        copy.unshift(setTime());
+        setDate(copy);
         
       }}>Enter</button>
     </div> //"App" End
