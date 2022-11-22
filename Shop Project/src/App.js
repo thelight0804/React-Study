@@ -6,10 +6,11 @@
 import './App.css';
 import { useState } from 'react';
 import {Container, Nav, Navbar, Row, Col} from 'react-bootstrap';
+import {Routes, Route, Link} from 'react-router-dom'
 
 import ProductList from "./productList";
+import Detail from "./detail"
 import {product} from "./data.js";
-
 
 function App() {
 
@@ -22,16 +23,26 @@ function App() {
           <Container>
             <Navbar.Brand href="#home">GOS Shop</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Brand</Nav.Link>
-              <Nav.Link href="#pricing">Community</Nav.Link>
+              <Link to="/" className="navBtn">Home</Link>
+              <Link to="/detail" className="navBtn">detail</Link>
             </Nav>
           </Container>
         </Navbar>
       </div>
+
+      <Routes>
+        <Route path="/" element={
+          <>
+            <div className='main-bg'></div>
+            <ProductList/>
+          </>
+        } />
+        <Route path="/detail" element={
+          <> <Detail/> </>
+        } />
+      </Routes>
       
-      <div className='main-bg'></div>
-        <ProductList/>
+
      </div>
   );
 }

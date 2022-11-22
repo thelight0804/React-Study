@@ -9,7 +9,7 @@ function Product(){
   return(
     <>
       <Row>
-        {cellphones.map(function(a, i){
+        {cellphones.map((a, i) => {
           return (
             <Col sm>
               <img src={process.env.PUBLIC_URL + imageURL[i]} width="80%"/>

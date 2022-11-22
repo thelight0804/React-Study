@@ -62,7 +62,9 @@
   background-position: center;
 }
 
-/* .flipper-middle{
-  width: 80%;
-  background-image: url('./img/Row_Galaxy-S22.png');
-} */
+.navBtn{
+  padding: 9px 7px;
+  color: #0c0c0c;
+  position: relative;
+  text-decoration-line: none;
+}
