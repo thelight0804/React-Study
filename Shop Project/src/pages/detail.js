@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {product} from "./data";
+import {product} from "../data/data";
 
 function Detail(){
   let [cellphones] = useState(product);

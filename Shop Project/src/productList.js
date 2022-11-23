@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {Row, Col} from 'react-bootstrap';
 
-import {product} from "./data.js";
+import {product} from "./data/data.js";
 
 function Product(){
   let [cellphones] = useState(product);
