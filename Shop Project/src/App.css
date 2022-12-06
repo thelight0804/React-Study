@@ -68,9 +68,11 @@
   position: relative;
   text-decoration-line: none;
 }
+
 .error-page{
   background-color: #beebfe;
 }
+
 .button{
   cursor: pointer;
 }
