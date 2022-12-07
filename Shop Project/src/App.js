@@ -5,16 +5,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import { useState } from 'react';
-import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap';
+import { useState } from 'react'
+import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
-import ProductList from "./productList";
+import ProductList from "./productList"
 import Detail from "./pages/detail"
 import NotFound from "./pages/notFound"
 
-
-import {product} from "./data/data.js";
+import {product} from "./data/data.js"
 
 function App() {
 
