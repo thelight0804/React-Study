@@ -1,23 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import styled from 'styled-components'
-
-let Btn = styled.button`
-  background : ${props => props.bg};
-  color : ${props => props.bg == 'blue' ? "white" : "black"};
-  padding : 10px;
-`
 
 function Detail(props){
+
+  useEffect(()=>{
+    setTimeout(()=>{setAlert(false)}, 2000);
+  })
+
+  
+
   let {id} = useParams();
   let dataId = props.cellphones.find(function(x){
     return x.id == id;
   })
+  let [alert, setAlert] = useState(true);
   return (
     <>
       <div className="container">
-          <Btn> Button </Btn>
-          <Btn bg = "blue"> Blue Button </Btn>
+        {alert ? <Sale/> : null}
         <div className="row">
           <div className="col-md-6">
             <img
@@ -35,6 +36,14 @@ function Detail(props){
       </div>
     </>
   );
+}
+
+function Sale(){
+  return(
+    <div className='alert alert-warning'>
+    2초이내 구매시 할인!
+    </div>
+  )
 }
 
 
