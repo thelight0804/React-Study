@@ -5,6 +5,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import axios from 'axios'
 import { useState } from 'react'
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
@@ -48,6 +49,19 @@ function App() {
                 ));
               }}>Sort by low price</Button>
               <ProductList cellphones = {cellphones} />
+              <Button variant="dark" className='btn-more' onClick={()=>{
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result)=>{ 
+                  let copy = [...cellphones, ...result.data];
+                  // let copy = [...cellphones];
+                  // result.data.map(function(a, i){ copy.push(result.data[i]); })
+                  // copy = copy.concat(result.data);
+                  setCellphones(copy);
+                 })
+                .catch(()=>{
+                  console.log('Error');
+                })
+              }}>More</Button>
             </>
           }>
         </Route>

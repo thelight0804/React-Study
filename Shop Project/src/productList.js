@@ -6,7 +6,7 @@ function Product(props){
   let navigate = useNavigate();
   return(
     <div key="{i}">
-      <Row >
+      <Row>
         {props.cellphones.map((a, i) => {
           return (
             <Col sm>
