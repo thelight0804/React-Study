@@ -20,6 +20,9 @@ function App() {
 
   let navigate = useNavigate();
   let [cellphones, setCellphones] = useState(product);
+  let [moreClick, setMoreClick] = useState(0);
+  let [moreAlert, setmoreAlert] = useState(true);
+  let [nowLoading, setNowLoading] = useState(false);
 
   return (
     <div className="App">
@@ -48,19 +51,49 @@ function App() {
                   )
                 ));
               }}>Sort by low price</Button>
+              <div>
+              { (moreClick > 2 && moreAlert) ? <NotMoreProduct/> : null }
+              </div>
+              { nowLoading ? <Loading/> : null }
               <ProductList cellphones = {cellphones} />
               <Button variant="dark" className='btn-more' onClick={()=>{
-                axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then((result)=>{ 
-                  let copy = [...cellphones, ...result.data];
-                  // let copy = [...cellphones];
-                  // result.data.map(function(a, i){ copy.push(result.data[i]); })
-                  // copy = copy.concat(result.data);
-                  setCellphones(copy);
-                 })
-                .catch(()=>{
-                  console.log('Error');
-                })
+                setNowLoading(true);
+                setMoreClick(moreClick + 1);
+                if (moreClick == 0){
+                  axios.get('https://codingapple1.github.io/shop/data2.json')
+                  .then((result)=>{ 
+                    let copy = [...cellphones, ...result.data];
+                    setCellphones(copy);
+                    setNowLoading(false);
+                   })
+                  .catch(()=>{
+                    console.log('Error');
+                    setNowLoading(false);
+                  })
+                }
+                else if (moreClick == 1){
+                  axios.get('https://codingapple1.github.io/shop/data3.json')
+                  .then((result)=>{ 
+                    let copy = [...cellphones, ...result.data];
+                    setCellphones(copy);
+                    setNowLoading(false);
+                   })
+                  .catch(()=>{
+                    console.log('Error');
+                    setNowLoading(false);
+                  })
+                }
+                else{
+                  let timer = setTimeout(()=>{setmoreAlert(false)}, 2000);
+                  setmoreAlert(true);
+                  setNowLoading(false);
+                }
+                // axios.post('URL', {name : 'kim'});
+                Promise.all([axios.get('https://codingapple1.github.io/shop/data2.json'), axios.get('https://codingapple1.github.io/shop/data3.json')])
+                .then((result)=>{ console.log(result)} );
+                // fetch('https://codingapple1.github.io/shop/data3.json')
+                // .then((response) => response.json())
+                // .then((data)=>{console.log(data)});
               }}>More</Button>
             </>
           }>
@@ -83,5 +116,18 @@ function Copyright(){
     </div>
   )
 }
-
+function NotMoreProduct(){
+  return(
+    <div className = 'alert alert-warning'>
+      더 이상 상품이 존재하지 않습니다.  
+    </div>
+  )
+}
+function Loading(){
+  return(
+    <>
+      <img src = {process.env.PUBLIC_URL + "/img/ajax-loader-white.gif"}></img>
+    </>
+  )
+}
 export default App;
