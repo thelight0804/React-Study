@@ -1,6 +1,6 @@
 /*
   Reference
-  https://www.samsung.com/sec/
+  `https://www.samsung.com/sec/`
 */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -23,7 +23,7 @@ function App() {
   let [moreClick, setMoreClick] = useState(0);
   let [moreAlert, setmoreAlert] = useState(true);
   let [nowLoading, setNowLoading] = useState(false);
-
+  
   return (
     <div className="App">
       <div>
@@ -51,9 +51,7 @@ function App() {
                   )
                 ));
               }}>Sort by low price</Button>
-              <div>
               { (moreClick > 2 && moreAlert) ? <NotMoreProduct/> : null }
-              </div>
               { nowLoading ? <Loading/> : null }
               <ProductList cellphones = {cellphones} />
               <Button variant="dark" className='btn-more' onClick={()=>{
@@ -88,12 +86,6 @@ function App() {
                   setmoreAlert(true);
                   setNowLoading(false);
                 }
-                // axios.post('URL', {name : 'kim'});
-                Promise.all([axios.get('https://codingapple1.github.io/shop/data2.json'), axios.get('https://codingapple1.github.io/shop/data3.json')])
-                .then((result)=>{ console.log(result)} );
-                // fetch('https://codingapple1.github.io/shop/data3.json')
-                // .then((response) => response.json())
-                // .then((data)=>{console.log(data)});
               }}>More</Button>
             </>
           }>
