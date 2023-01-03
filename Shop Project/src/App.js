@@ -90,7 +90,7 @@ function App() {
             </>
           }>
         </Route>
-        <Route path="/detail/:id" element={ <Detail cellphones = {cellphones} /> } />
+        <Route path="/detail/:id" element={ <Detail cellphones = {cellphones}/> } />
         <Route path="/copyright" element={ <Copyright/> }>
           <Route path="year" element={<div>© 1995-1999</div>}/>
           <Route path="id" element={<div>Thelight0804</div>}/>
@@ -100,6 +100,7 @@ function App() {
      </div>
   );
 }
+
 function Copyright(){
   return(
     <div>
