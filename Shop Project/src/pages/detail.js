@@ -1,12 +1,22 @@
 import './detail.css';
 
-import React, { useEffect, useState, } from 'react';
+import React, { useContext, useEffect, useState, } from 'react';
 import { useParams } from 'react-router-dom';
+import {Context1} from './../App.js'
 
 import {Nav} from 'react-bootstrap';
 
+
 function Detail(props){
   let[fade, setFade] = useState('');
+  let {id} = useParams();
+  let dataId = props.cellphones.find(function(x){
+    return x.id == id;
+  })
+  let [alert, setAlert] = useState(true);
+  let [amount, setAmount] = useState(0);
+  let [numAlert, setNumAlert] = useState(true);
+  let [tab, setTab] = useState(0);
 
   useEffect(()=>{
     let timer = setTimeout(()=>{ setFade('end');}, 100);
@@ -16,15 +26,6 @@ function Detail(props){
       setFade('');
     }
   }, [])
-
-  let {id} = useParams();
-  let dataId = props.cellphones.find(function(x){
-    return x.id == id;
-  })
-  let [alert, setAlert] = useState(true);
-  let [amount, setAmount] = useState(0);
-  let [numAlert, setNumAlert] = useState(true);
-  let [tab, setTab] = useState(0);
 
   useEffect(()=>{
     let timer = setTimeout(()=>{setAlert(false)}, 2000);
@@ -78,7 +79,7 @@ function Detail(props){
                   판매자 정보</Nav.Link>
             </Nav.Item>
           </Nav>
-          <TabContent tab = {tab} />
+          <TabContent tab = {tab}/>
       </div>
     </div>
   );
@@ -87,6 +88,9 @@ function Detail(props){
 function TabContent({tab}){
   let[fade, setFade] = useState('');
 
+  let content = useContext(Context1);
+  console.log(content.stock[0]);
+  
   useEffect(()=>{
     let timer = setTimeout(()=>{ setFade('end');}, 100);
 
@@ -138,7 +142,5 @@ function NumAlert(){
     </div>
   )
 }
-
-
 
 export default Detail
