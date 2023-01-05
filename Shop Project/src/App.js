@@ -11,8 +11,9 @@ import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
 import ProductList from "./productList"
-import Detail from "./pages/detail"
-import NotFound from "./pages/notFound"
+import Detail from "./pages/Detail"
+import NotFound from "./pages/NotFound"
+import Cart from "./pages/Cart"
 
 import {product} from "./data/data.js"
 
@@ -102,6 +103,7 @@ function App() {
           <Route path="year" element={<div>© 1995-1999</div>}/>
           <Route path="id" element={<div>Thelight0804</div>}/>
         </Route>
+        <Route path="/cart" element={<Cart/>}/>
         <Route path="*" element={<NotFound/>} />
       </Routes>
      </div>

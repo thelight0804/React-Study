@@ -1,8 +1,8 @@
-import './detail.css';
+import './Detail.css';
 
 import React, { useContext, useEffect, useState, } from 'react';
 import { useParams } from 'react-router-dom';
-import {Context1} from './../App.js'
+import {Context1} from '../App.js'
 
 import {Nav} from 'react-bootstrap';
 
