@@ -1,6 +1,9 @@
 import {Table} from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 function Cart(){
+  let data = useSelector((state)=> state );
+  //{return } 생략 가능
   return(
     <>
       <div>
@@ -8,23 +11,23 @@ function Cart(){
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Goods</th>
+              <th>Amount</th>
+              <th>Change</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>0</td>
+              <td>{data.productCart[0].name}</td>
+              <td>{data.productCart[0].count}</td>
+              <td>O</td>
             </tr>
             <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
+              <td>1</td>
+              <td>{data.productCart[1].name}</td>
+              <td>{data.productCart[1].count}</td>
+              <td>O</td>
             </tr>
           </tbody>
        </Table>
