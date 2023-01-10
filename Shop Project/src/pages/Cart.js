@@ -1,34 +1,37 @@
 import {Table} from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {getProductCart, changeName} from './../data/store.js'
 
 function Cart(){
   let data = useSelector((state)=> state );
-  //{return } 생략 가능
+  let dispatch = useDispatch();
   return(
     <>
       <div>
+        <button onClick={()=>{
+          dispatch(changeName());
+          }}>name</button>
+        {data.user}의 장바구니
         <Table striped bordered hover>
           <thead>
             <tr>
               <th>#</th>
               <th>Goods</th>
               <th>Amount</th>
-              <th>Change</th>
+              <th>Plus</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>0</td>
-              <td>{data.productCart[0].name}</td>
-              <td>{data.productCart[0].count}</td>
-              <td>O</td>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>{data.productCart[1].name}</td>
-              <td>{data.productCart[1].count}</td>
-              <td>O</td>
-            </tr>
+            {data.productCart.map((a, i) => 
+              <tr key={i}>
+                <td>{i+1}</td>
+                <td>{data.productCart[i].name}</td>
+                <td>{data.productCart[i].count}</td>
+                <td>
+                  <button>+</button>
+                </td>
+              </tr>  
+            )}
           </tbody>
        </Table>
       </div>
