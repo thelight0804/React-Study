@@ -36,7 +36,7 @@ function App() {
             <Navbar.Brand className='button' onClick={() => { navigate('/') } }>GOS Shop</Navbar.Brand>
             <Nav className="me-auto">
             <Nav.Link onClick={()=>{ navigate(-1) }}> &lt; </Nav.Link>
-              <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
+              <Nav.Link onClick={()=>{ navigate('/cart') }}>cart</Nav.Link>
               <Nav.Link onClick={()=>{ navigate('/copyright') }}>Copyright</Nav.Link>
             </Nav>
           </Container>

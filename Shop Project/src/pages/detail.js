@@ -3,11 +3,14 @@ import './Detail.css';
 import React, { useContext, useEffect, useState, } from 'react';
 import { useParams } from 'react-router-dom';
 import {Context1} from '../App.js'
+import { useDispatch } from 'react-redux';
+import {addItem} from './../data/store/productSlice.js'
 
 import {Nav} from 'react-bootstrap';
 
-
 function Detail(props){
+  let dispatch = useDispatch();
+
   let[fade, setFade] = useState('');
   let {id} = useParams();
   let dataId = props.cellphones.find(function(x){
@@ -57,7 +60,9 @@ function Detail(props){
                 setAmount(e.target.value);
               }}/>
             </div>
-            <button className="btn btn-danger">주문하기</button>
+            <button className="btn btn-danger" onClick={()=>{
+              dispatch(addItem(dataId));
+            }}>주문하기</button>
           </div>
           <h3>구매시 유의사항</h3>
         </div>
@@ -89,7 +94,6 @@ function TabContent({tab}){
   let[fade, setFade] = useState('');
 
   let content = useContext(Context1);
-  console.log(content.stock[0]);
   
   useEffect(()=>{
     let timer = setTimeout(()=>{ setFade('end');}, 100);

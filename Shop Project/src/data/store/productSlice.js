@@ -9,13 +9,28 @@ let productCart = createSlice({
   ],
   reducers : {
     addCount(state, action){
-      let dataId = state.find(function(x){
-        return x.id == action.payload;
+      let dataId = state.find((a)=>{
+        return a.id == action.payload
       })
       dataId.count ++;
+    },
+    addItem(state, action){
+      let dataId = state.findIndex((a)=>{
+        return a.id == action.payload.id
+      })
+      if(dataId != -1)
+        state[dataId].count ++;
+      else{
+        let productObj = {
+          id : action.payload.id,
+          name : action.payload.title,
+          count : 1
+        }
+        state.push(productObj)
+      }
     }
   }
 })
 
-export let {addCount} = productCart.actions;
+export let {addCount, addItem} = productCart.actions;
 export default productCart
