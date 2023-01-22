@@ -16,7 +16,7 @@ let productCart = createSlice({
     },
     addItem(state, action){
       let dataId = state.findIndex((a)=>{
-        return a.id == action.payload.id
+        return a.id == action.payload
       })
       if(dataId != -1)
         state[dataId].count ++;
@@ -28,9 +28,18 @@ let productCart = createSlice({
         }
         state.push(productObj)
       }
+    },
+    delItem(state, action){
+      let dataId = state.findIndex((a)=>{
+        return a.id == action.payload
+      })
+      state[dataId].count --;
+      if(state[dataId].count == 0){
+        state.splice(dataId, 1);
+      }
     }
   }
 })
 
-export let {addCount, addItem} = productCart.actions;
+export let {addCount, addItem, delItem} = productCart.actions;
 export default productCart
