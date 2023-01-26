@@ -1,7 +1,6 @@
 import {Row, Col} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-
 function Product(props){
   let navigate = useNavigate();
   return(

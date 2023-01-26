@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import axios from 'axios'
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
@@ -20,13 +20,17 @@ import {product} from "./data/data.js"
 export let Context1 = createContext();
 
 function App() {
-
   let navigate = useNavigate();
   let [cellphones, setCellphones] = useState(product);
   let [moreClick, setMoreClick] = useState(0);
   let [moreAlert, setmoreAlert] = useState(true);
   let [nowLoading, setNowLoading] = useState(false);
   let [stock, setStock] = useState([102, 230, 185]);
+  useEffect(()=>{
+    if(localStorage.getItem("watched") == null){
+      localStorage.setItem("watched", JSON.stringify([]))
+    }
+  },[])
   
   return (
     <div className="App">

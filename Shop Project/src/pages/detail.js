@@ -29,7 +29,7 @@ function Detail(props){
       setFade('');
     }
   }, [])
-
+  
   useEffect(()=>{
     let timer = setTimeout(()=>{setAlert(false)}, 2000);
     isNaN(amount) ? setNumAlert(false) : setNumAlert(true);
@@ -37,6 +37,14 @@ function Detail(props){
       clearTimeout(timer);
     }
     }, [amount])
+  
+  useEffect(()=>{
+    let watched = JSON.parse(localStorage.getItem("watched"));
+    watched.unshift(dataId.id);
+    watched = new Set(watched); //중복 제거
+    watched = Array.from(watched);
+    localStorage.setItem("watched", JSON.stringify(watched));
+  },[])
   
   return (
     <div className={`start ${fade}`}>
