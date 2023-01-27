@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound"
 import Cart from "./pages/Cart"
 
 import {product} from "./data/data.js"
+import { useQuery } from '@tanstack/react-query';
 
 export let Context1 = createContext();
 
@@ -26,11 +27,21 @@ function App() {
   let [moreAlert, setmoreAlert] = useState(true);
   let [nowLoading, setNowLoading] = useState(false);
   let [stock, setStock] = useState([102, 230, 185]);
+
   useEffect(()=>{
     if(localStorage.getItem("watched") == null){
       localStorage.setItem("watched", JSON.stringify([]))
     }
   },[])
+
+  let result = useQuery(['query'], ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{ 
+      console.log("axios.get")
+      return a.data
+     }),
+     {staleTime : 2000}
+  )
   
   return (
     <div className="App">
@@ -42,6 +53,11 @@ function App() {
             <Nav.Link onClick={()=>{ navigate(-1) }}> &lt; </Nav.Link>
               <Nav.Link onClick={()=>{ navigate('/cart') }}>cart</Nav.Link>
               <Nav.Link onClick={()=>{ navigate('/copyright') }}>Copyright</Nav.Link>
+            </Nav>
+            <Nav className="ms-auto">
+              {result.isLoading && "로딩중"}
+              {result.error && "Error!"}
+              {result.data && "환영합니다 " + result.data.name }
             </Nav>
           </Container>
         </Navbar>
