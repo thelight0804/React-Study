@@ -16,8 +16,9 @@ let productCart = createSlice({
     },
     addItem(state, action){
       let dataId = state.findIndex((a)=>{
-        return a.id == action.payload
+        return a.id == action.payload.id
       })
+      console.log(dataId)
       if(dataId != -1)
         state[dataId].count ++;
       else{

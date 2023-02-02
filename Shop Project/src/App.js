@@ -6,17 +6,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import axios from 'axios'
-import { createContext, useEffect, useState } from 'react'
+import { lazy, Suspense, createContext, useEffect, useState } from 'react'
 import {Container, Nav, Navbar, Button, Row, Col} from 'react-bootstrap'
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
-import ProductList from "./productList"
-import Detail from "./pages/Detail"
-import NotFound from "./pages/NotFound"
-import Cart from "./pages/Cart"
 
+
+import ProductList from "./productList"
 import {product} from "./data/data.js"
 import { useQuery } from '@tanstack/react-query';
+
+const Detail = lazy(()=> import("./pages/Detail"))
+const Cart = lazy(()=> import("./pages/Cart"))
+const NotFound = lazy(()=> import("./pages/NotFound"))
+
+// import Detail from "./pages/Detail"
+// import NotFound from "./pages/NotFound"
+// import Cart from "./pages/Cart"
+
+
 
 export let Context1 = createContext();
 
@@ -37,7 +45,6 @@ function App() {
   let result = useQuery(['query'], ()=>
     axios.get('https://codingapple1.github.io/userdata.json')
     .then((a)=>{ 
-      console.log("axios.get")
       return a.data
      }),
      {staleTime : 2000}
@@ -62,70 +69,73 @@ function App() {
           </Container>
         </Navbar>
       </div>
+      <Suspense fallback={<div>로딩중</div>}>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <div className='main-bg'> </div>
+              <Button variant="secondary" onClick={()=>{
+                  let copyPhone = [...cellphones];
+                  setCellphones(copyPhone.sort(
+                    (p1, p2) => (
+                      p1.price > p2.price ? 1 : (p1.price < p2.price) ? -1 : 0
+                    )
+                  ));
+                }}>Sort by low price</Button>
+                { (moreClick > 2 && moreAlert) ? <NotMoreProduct/> : null }
+                { nowLoading ? <Loading/> : null }
+                <ProductList cellphones = {cellphones} />
+                <Button variant="dark" className='btn-more' onClick={()=>{
+                  setNowLoading(true);
+                  setMoreClick(moreClick + 1);
+                  if (moreClick == 0){
+                    axios.get('https://codingapple1.github.io/shop/data2.json')
+                    .then((result)=>{ 
+                      let copy = [...cellphones, ...result.data];
+                      setCellphones(copy);
+                      setNowLoading(false);
+                    })
+                    .catch(()=>{
+                      console.log('Error');
+                      setNowLoading(false);
+                    })
+                  }
+                  else if (moreClick == 1){
+                    axios.get('https://codingapple1.github.io/shop/data3.json')
+                    .then((result)=>{ 
+                      let copy = [...cellphones, ...result.data];
+                      setCellphones(copy);
+                      setNowLoading(false);
+                    })
+                    .catch(()=>{
+                      console.log('Error');
+                      setNowLoading(false);
+                    })
+                  }
+                  else{
+                    let timer = setTimeout(()=>{setmoreAlert(false)}, 2000);
+                    setmoreAlert(true);
+                    setNowLoading(false);
+                  }
+                }}>More</Button>
+              </>
+            }>
+          </Route>
 
-      <Routes>
-        <Route path="/" element={
-          <>
-            <div className='main-bg'> </div>
-            <Button variant="secondary" onClick={()=>{
-                let copyPhone = [...cellphones];
-                setCellphones(copyPhone.sort(
-                  (p1, p2) => (
-                    p1.price > p2.price ? 1 : (p1.price < p2.price) ? -1 : 0
-                  )
-                ));
-              }}>Sort by low price</Button>
-              { (moreClick > 2 && moreAlert) ? <NotMoreProduct/> : null }
-              { nowLoading ? <Loading/> : null }
-              <ProductList cellphones = {cellphones} />
-              <Button variant="dark" className='btn-more' onClick={()=>{
-                setNowLoading(true);
-                setMoreClick(moreClick + 1);
-                if (moreClick == 0){
-                  axios.get('https://codingapple1.github.io/shop/data2.json')
-                  .then((result)=>{ 
-                    let copy = [...cellphones, ...result.data];
-                    setCellphones(copy);
-                    setNowLoading(false);
-                   })
-                  .catch(()=>{
-                    console.log('Error');
-                    setNowLoading(false);
-                  })
-                }
-                else if (moreClick == 1){
-                  axios.get('https://codingapple1.github.io/shop/data3.json')
-                  .then((result)=>{ 
-                    let copy = [...cellphones, ...result.data];
-                    setCellphones(copy);
-                    setNowLoading(false);
-                   })
-                  .catch(()=>{
-                    console.log('Error');
-                    setNowLoading(false);
-                  })
-                }
-                else{
-                  let timer = setTimeout(()=>{setmoreAlert(false)}, 2000);
-                  setmoreAlert(true);
-                  setNowLoading(false);
-                }
-              }}>More</Button>
-            </>
-          }>
-        </Route>
-        <Route path="/detail/:id" element={ 
-          <Context1.Provider value={{stock}}>
-            <Detail cellphones = {cellphones}/>
-          </Context1.Provider>
-        } />
-        <Route path="/copyright" element={ <Copyright/> }>
-          <Route path="year" element={<div>© 1995-1999</div>}/>
-          <Route path="id" element={<div>Thelight0804</div>}/>
-        </Route>
-        <Route path="/cart" element={<Cart/>}/>
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
+            <Route path="/detail/:id" element={ 
+              <Context1.Provider value={{stock}}>
+                <Detail cellphones = {cellphones}/>
+              </Context1.Provider>
+            } />
+
+          <Route path="/copyright" element={ <Copyright/> }>
+            <Route path="year" element={<div>© 1995-1999</div>}/>
+            <Route path="id" element={<div>Thelight0804</div>}/>
+          </Route>
+          <Route path="/cart" element={<Cart/>}/>
+          <Route path="*" element={<NotFound/>} />
+        </Routes>
+      </Suspense>
      </div>
   );
 }
