@@ -4,28 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {addCount, delItem} from './../data/store/productSlice.js'
 
 function Cart(){
-  let [count, setCount] = useState(0);
-  let [age, setAge] = useState(20);
-
   let data = useSelector((state)=> state );
   let dispatch = useDispatch();
-
-  useEffect(()=>{
-    if(count != 0 && count < 3){
-      setAge(age + 1);
-    }
-  }, [count])
-
   return(
     <>
       <div>
         {data.user.name}의 장바구니
-        <div>
-          <div>나이 : {age}</div>
-          <button onClick={()=>{
-            setCount(count + 1);
-          }}>나이 먹기</button>
-        </div>
         <Table striped bordered hover>
           <thead>
             <tr>
