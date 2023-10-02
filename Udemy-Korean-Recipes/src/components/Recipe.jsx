@@ -6,8 +6,8 @@ function Recipe(props) {
 
     return (
         <div className={styles.recipe}>
-            <p>메뉴 : {props.menu}</p>
-            <p>{props.body}</p>
+            <p className={styles.menu}>{props.menu}</p>
+            <p className={styles.text}>{props.body}</p>
         </div>
     );
 }
