@@ -1,15 +1,15 @@
 import styles from "./NewRecipe.module.css";
 
-function NewRecipe(){
+function NewRecipe(props){
     return(
         <form className={styles.form}>
             <p>
                 <label htmlFor="body">Text</label>
-                <textarea id="body" required rows={3} />
+                <textarea id="body" required rows={3} onChange={props.onBodyChange}/>
             </p>
             <p>
-                <label htmlFor="name">Your name</label>
-                <input type="text" id="name" required />
+                <label htmlFor="menu">Your menu</label>
+                <input type="text" id="menu" required onChange={props.onMenuChange}/>
             </p>
         </form>
     );

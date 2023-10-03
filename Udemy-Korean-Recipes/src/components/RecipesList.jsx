@@ -1,13 +1,25 @@
 import Recipe from './Recipe';
 import NewRecipe from './NewRecipe';
 import styles from './RecipesList.module.css';
+import { useState } from 'react';
 
 function RecipeList(props) {
+    var [enteredBody, setEnteredBody] = useState("");
+    var [enteredMenu, setEnteredMenu] = useState("");
+
+    function bodyChangeHandler(event) {
+        setEnteredBody(event.target.value);
+    }
+
+    function menuChangeHandler(event) {
+        setEnteredMenu(event.target.value);
+    }
+
     return (
         <>
-            <NewRecipe />
+            <NewRecipe onBodyChange = {bodyChangeHandler} onMenuChange = {menuChangeHandler}/>
             <ul className={styles.recipes}>
-                <Recipe menu={'참치 비빔밥'} body={'고추참치 고추참치'}/>
+                <Recipe menu={enteredMenu} body={enteredBody}/>
                 <Recipe menu={'야채 비빔밥'} body={'아삭한 상추'}/>
                 <Recipe menu={'초콜릿 비빔밥'} body={'고추장 대신 누텔라'}/>
                 <Recipe menu={'고기 비빔밥'} body={'돼지고기 보다는 소고기'}/>
