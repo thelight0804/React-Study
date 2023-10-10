@@ -4,7 +4,7 @@ import Modal from './Modal';
 import styles from './RecipesList.module.css';
 import { useState } from 'react';
 
-function RecipeList(props) {
+function RecipeList({isModal, onHideModal}) {
     var [enteredBody, setEnteredBody] = useState("");
     var [enteredMenu, setEnteredMenu] = useState("");
 
@@ -18,12 +18,14 @@ function RecipeList(props) {
 
     return (
         <>
-            <Modal>
-                <NewRecipe
-                    onBodyChange={bodyChangeHandler}
-                    onMenuChange={menuChangeHandler}
-                />
-            </Modal>
+            {isModal && (
+                <Modal onHideModal={onHideModal}>
+                    <NewRecipe
+                        onBodyChange={bodyChangeHandler}
+                        onMenuChange={menuChangeHandler}
+                    />
+                </Modal>
+            )}
             <ul className={styles.recipes}>
                 <Recipe menu={enteredMenu} body={enteredBody} />
                 <Recipe menu={"야채 비빔밥"} body={"아삭한 상추"} />
