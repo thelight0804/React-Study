@@ -31,24 +31,26 @@
     gap: 0.5rem;
 }
 
+
 .actions button {
     cursor: pointer;
     font: inherit;
     padding: 0.5rem 1.5rem;
+    font-size: 1.5rem;
     border: none;
     border-radius: 4px;
-    background-color: #34036c;
-    color: #e5d5f7;
+    background-color: #de8d5b;
+    color: white;
 }
 
 .actions button:hover {
-    background-color: #23014a;
+    background-color: #da9a73;
 }
   
-  .actions button[type='button'] {
+.actions button[type='button'] {
     background-color: transparent;
 }
   
-  .actions button[type='button']:hover {
-    color: #d1bee6;
+.actions button[type='button']:hover {
+    color: black;
 }

@@ -23,6 +23,7 @@ function RecipeList({isModal, onHideModal}) {
                     <NewRecipe
                         onBodyChange={bodyChangeHandler}
                         onMenuChange={menuChangeHandler}
+                        onCancel={onHideModal}
                     />
                 </Modal>
             )}
