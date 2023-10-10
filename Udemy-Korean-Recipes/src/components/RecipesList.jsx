@@ -1,5 +1,6 @@
 import Recipe from './Recipe';
 import NewRecipe from './NewRecipe';
+import Modal from './Modal';
 import styles from './RecipesList.module.css';
 import { useState } from 'react';
 
@@ -17,12 +18,17 @@ function RecipeList(props) {
 
     return (
         <>
-            <NewRecipe onBodyChange = {bodyChangeHandler} onMenuChange = {menuChangeHandler}/>
+            <Modal>
+                <NewRecipe
+                    onBodyChange={bodyChangeHandler}
+                    onMenuChange={menuChangeHandler}
+                />
+            </Modal>
             <ul className={styles.recipes}>
-                <Recipe menu={enteredMenu} body={enteredBody}/>
-                <Recipe menu={'야채 비빔밥'} body={'아삭한 상추'}/>
-                <Recipe menu={'초콜릿 비빔밥'} body={'고추장 대신 누텔라'}/>
-                <Recipe menu={'고기 비빔밥'} body={'돼지고기 보다는 소고기'}/>
+                <Recipe menu={enteredMenu} body={enteredBody} />
+                <Recipe menu={"야채 비빔밥"} body={"아삭한 상추"} />
+                <Recipe menu={"초콜릿 비빔밥"} body={"고추장 대신 누텔라"} />
+                <Recipe menu={"고기 비빔밥"} body={"돼지고기 보다는 소고기"} />
             </ul>
         </>
     );
