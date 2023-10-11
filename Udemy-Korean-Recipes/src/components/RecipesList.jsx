@@ -5,15 +5,13 @@ import styles from './RecipesList.module.css';
 import { useState } from 'react';
 
 function RecipeList({isModal, onHideModal}) {
-    var [enteredBody, setEnteredBody] = useState("");
-    var [enteredMenu, setEnteredMenu] = useState("");
+    var [recipes, setRecipes] = useState([]);
 
-    function bodyChangeHandler(event) {
-        setEnteredBody(event.target.value);
-    }
-
-    function menuChangeHandler(event) {
-        setEnteredMenu(event.target.value);
+    function setRecipesHandler(recipeData) {
+        // setRecipes([recipeData, ...recipes]);
+        setRecipes((recipe) => [recipeData, ...recipe]);
+        console.log(recipes);
+        // setRecipes(recipes.push(recipeData));
     }
 
     return (
@@ -21,18 +19,23 @@ function RecipeList({isModal, onHideModal}) {
             {isModal && (
                 <Modal onHideModal={onHideModal}>
                     <NewRecipe
-                        onBodyChange={bodyChangeHandler}
-                        onMenuChange={menuChangeHandler}
                         onCancel={onHideModal}
+                        onSetRecipe={setRecipesHandler}
                     />
                 </Modal>
             )}
-            <ul className={styles.recipes}>
-                <Recipe menu={enteredMenu} body={enteredBody} />
-                <Recipe menu={"야채 비빔밥"} body={"아삭한 상추"} />
-                <Recipe menu={"초콜릿 비빔밥"} body={"고추장 대신 누텔라"} />
-                <Recipe menu={"고기 비빔밥"} body={"돼지고기 보다는 소고기"} />
-            </ul>
+            {recipes.length > 0 ? (
+                <ul className={styles.recipes}>
+                    {recipes.map((recipe) => 
+                        <Recipe key={recipe.body} menu={recipe.menu} body={recipe.body} />
+                    )}
+                </ul>
+            ) : (
+                <div style={{textAlign: 'center', color: '#411c05'}}>
+                    <h2>등록된 레시피가 없습니다.</h2>
+                    <p>첫 번째 레시피를 등록해 보세요!</p>
+                </div>
+            )}
         </>
     );
 }

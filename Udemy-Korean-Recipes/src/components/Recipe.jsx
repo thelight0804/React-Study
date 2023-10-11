@@ -1,7 +1,5 @@
 import styles from './Recipe.module.css';
 
-const menu = ['참치 비빔밥', '야채 비빔밥']
-
 function Recipe({menu, body}) {
 
     return (
