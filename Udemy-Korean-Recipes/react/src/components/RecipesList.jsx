@@ -6,12 +6,15 @@ import { useEffect, useState } from 'react';
 
 function RecipeList({isModal, onHideModal}) {
   var [recipes, setRecipes] = useState([]);
+  const [isFetching, setIsFetching] = useState(false); // 로딩 여부
 
   useEffect(()=>{
     async function getRecipes() {
+      setIsFetching(true); // 로딩 시작
       const response = await fetch('http://localhost:8080/posts');
       const resData = await response.json();
       setRecipes(resData.posts);
+      setIsFetching(false); // 로딩 끝
     }
 
     getRecipes();
@@ -39,16 +42,22 @@ function RecipeList({isModal, onHideModal}) {
         </Modal>
       )}
       
-      {recipes.length > 0 ? (
+      {!isFetching && recipes.length > 0 && (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => 
             <Recipe key={recipe.body} menu={recipe.menu} body={recipe.body} />
           )}
         </ul>
-      ) : (
+      )}
+      {!isFetching && recipes.length === 0 && (
         <div style={{textAlign: 'center', color: '#411c05'}}>
-            <h2>등록된 레시피가 없습니다.</h2>
-            <p>첫 번째 레시피를 등록해 보세요!</p>
+        <h2>등록된 레시피가 없습니다.</h2>
+        <p>첫 번째 레시피를 등록해 보세요!</p>
+        </div>
+      )}
+      {isFetching && (
+        <div style={{textAlign: 'center', color: '#411c05'}}>
+          <p>로딩중...</p>
         </div>
       )}
     </>
