@@ -3,6 +3,7 @@ import NewRecipe from './NewRecipe';
 import Modal from './Modal';
 import styles from './RecipesList.module.css';
 import { useEffect, useState } from 'react';
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader"
 
 function RecipeList({isModal, onHideModal}) {
   var [recipes, setRecipes] = useState([]);
@@ -57,9 +58,19 @@ function RecipeList({isModal, onHideModal}) {
       )}
       {isFetching && (
         <div style={{textAlign: 'center', color: '#411c05'}}>
-          <p>로딩중...</p>
+        <p>로딩중...</p>
         </div>
       )}
+      {/* {isFetching && (
+        <ClimbingBoxLoader
+          color={'#432a1b'}
+          loading={isFetching}
+          cssOverride={{margin: "0 auto"}}
+          size={15}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )} */}
     </>
   );
 }
