@@ -2,10 +2,20 @@ import Recipe from './Recipe';
 import NewRecipe from './NewRecipe';
 import Modal from './Modal';
 import styles from './RecipesList.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function RecipeList({isModal, onHideModal}) {
   var [recipes, setRecipes] = useState([]);
+
+  useEffect(()=>{
+    async function getRecipes() {
+      const response = await fetch('http://localhost:8080/posts');
+      const resData = await response.json();
+      setRecipes(resData.posts);
+    }
+
+    getRecipes();
+  }, [])
 
   function setRecipesHandler(recipeData) {
       fetch('http://localhost:8080/posts', {
