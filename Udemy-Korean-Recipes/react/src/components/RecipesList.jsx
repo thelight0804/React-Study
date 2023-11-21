@@ -1,11 +1,9 @@
 import Recipe from './Recipe';
-import NewRecipe from './NewRecipe';
-import Modal from './Modal';
 import styles from './RecipesList.module.css';
 import { useEffect, useState } from 'react';
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader"
 
-function RecipeList({isModal, onHideModal}) {
+function RecipeList() {
   var [recipes, setRecipes] = useState([]);
   const [isFetching, setIsFetching] = useState(false); // 로딩 여부
 
@@ -34,15 +32,6 @@ function RecipeList({isModal, onHideModal}) {
 
   return (
     <>
-      {isModal && (
-        <Modal onHideModal={onHideModal}>
-          <NewRecipe
-            onCancel={onHideModal}
-            onSetRecipe={setRecipesHandler}
-          />
-        </Modal>
-      )}
-      
       {!isFetching && recipes.length > 0 && (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => 
