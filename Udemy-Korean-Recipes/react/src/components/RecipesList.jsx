@@ -13,7 +13,7 @@ function RecipeList() {
       {recipes.length > 0 && (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => 
-            <Recipe key={recipe.body} menu={recipe.menu} body={recipe.body} />
+            <Recipe key={recipe.id} id={recipe.id} menu={recipe.menu} body={recipe.body} />
           )}
         </ul>
       )}

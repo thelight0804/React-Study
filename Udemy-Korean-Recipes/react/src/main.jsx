@@ -5,6 +5,7 @@ import './index.css'
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import NewRecipe, {action as newRecipeAction} from './routes/NewRecipe.jsx'
 import RootLayout from './routes/RootLayout.jsx'
+import RecipeDetails, {loader as recipeDetailsLoader} from './routes/RecipeDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Recipes />,
         loader: recipesLoader,
-        children: [{ path: "/create-recipe", element: <NewRecipe />, action: newRecipeAction }],
+        children: [
+          { path: "/create-recipe", element: <NewRecipe />, action: newRecipeAction },
+          { path: "/:id", element: <RecipeDetails />, loader: recipeDetailsLoader}
+        ],
       },
     ],
   },

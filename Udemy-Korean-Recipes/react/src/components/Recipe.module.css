@@ -11,6 +11,10 @@
     animation: animation-in 1s ease-out forwards;
 }
 
+.recipe a {
+  text-decoration: none;
+}
+
 .menu {
     margin: 1rem;
     white-space: pre-wrap;
