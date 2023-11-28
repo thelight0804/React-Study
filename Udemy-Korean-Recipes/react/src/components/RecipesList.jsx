@@ -7,19 +7,6 @@ import PacmanLoader from "react-spinners/PacmanLoader";
 
 function RecipeList() {
   const recipes = useLoaderData();
-  // var [recipes, setRecipes] = useState([]);
-  // const [isFetching, setIsFetching] = useState(false); // 로딩 여부
-
-  function setRecipesHandler(recipeData) {
-      fetch('http://localhost:8080/posts', {
-        method: 'POST',
-        body: JSON.stringify(recipeData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-    });
-    setRecipes((recipe) => [recipeData, ...recipe]);
-  }
 
   return (
     <>

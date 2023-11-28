@@ -1,41 +1,19 @@
-import { useState } from 'react';
 import Modal from '../components/Modal'
 import styles from "./NewRecipe.module.css";
-import { Link } from 'react-router-dom';
+import { Link, Form, redirect } from 'react-router-dom';
 
-function NewRecipe({onSetRecipe}){
-    var [enteredBody, setEnteredBody] = useState("");
-    var [enteredMenu, setEnteredMenu] = useState("");
-
-    function bodyChangeHandler(event) {
-        setEnteredBody(event.target.value);
-    }
-
-    function menuChangeHandler(event) {
-        setEnteredMenu(event.target.value);
-    }
-
-    function submitHandler(event) {
-        event.preventDefault();
-        const postData = {
-            menu: enteredMenu,
-            body: enteredBody
-        };
-        onSetRecipe(postData);
-        onCancel();
-    }
-
+function NewRecipe(){
     return (
         <Modal>
-            <form className={styles.form} onSubmit={submitHandler}>
+            <Form method='post' className={styles.form}>
                 <p>
                     <label htmlFor="menu">음식 제목</label>
-                    <input type="text" id="menu" required onChange={menuChangeHandler}
+                    <input type="text" id="menu" name="menu" required
                     />
                 </p>
                 <p>
                     <label htmlFor="body">레시피</label>
-                    <textarea id="body" required rows={3} onChange={bodyChangeHandler}
+                    <textarea id="body" name="body" required rows={3}
                     />
                 </p>
                 <p className={styles.actions}>
@@ -44,9 +22,23 @@ function NewRecipe({onSetRecipe}){
                     </Link>
                     <button>추가</button>
                 </p>
-            </form>
+            </Form>
         </Modal>
     );
 }
 
 export default NewRecipe;
+
+export async function action({request}) {
+  const formData = await request.formData();
+  const recipeData = Object.fromEntries(formData); // {menu: '...', body: '...'}
+  await fetch('http://localhost:8080/posts', {
+    method: 'POST',
+    body: JSON.stringify(recipeData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  return redirect('/');
+}
