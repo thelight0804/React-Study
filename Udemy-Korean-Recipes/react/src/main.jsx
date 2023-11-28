@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Recipes from './routes/Recipes.jsx'
+import Recipes, {loader as recipesLoader} from './routes/Recipes.jsx'
 import './index.css'
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import NewRecipe from './routes/NewRecipe.jsx'
@@ -14,6 +14,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Recipes />,
+        loader: recipesLoader,
         children: [{ path: "/create-recipe", element: <NewRecipe /> }],
       },
     ],

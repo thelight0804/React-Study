@@ -1,23 +1,14 @@
+// import { useEffect, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+
 import Recipe from './Recipe';
 import styles from './RecipesList.module.css';
-import { useEffect, useState } from 'react';
 import PacmanLoader from "react-spinners/PacmanLoader";
 
 function RecipeList() {
-  var [recipes, setRecipes] = useState([]);
-  const [isFetching, setIsFetching] = useState(false); // 로딩 여부
-
-  useEffect(()=>{
-    async function getRecipes() {
-      setIsFetching(true); // 로딩 시작
-      const response = await fetch('http://localhost:8080/posts');
-      const resData = await response.json();
-      setRecipes(resData.posts);
-      setIsFetching(false); // 로딩 끝
-    }
-
-    getRecipes();
-  }, [])
+  const recipes = useLoaderData();
+  // var [recipes, setRecipes] = useState([]);
+  // const [isFetching, setIsFetching] = useState(false); // 로딩 여부
 
   function setRecipesHandler(recipeData) {
       fetch('http://localhost:8080/posts', {
@@ -32,37 +23,17 @@ function RecipeList() {
 
   return (
     <>
-      {!isFetching && recipes.length > 0 && (
+      {recipes.length > 0 && (
         <ul className={styles.recipes}>
           {recipes.map((recipe) => 
             <Recipe key={recipe.body} menu={recipe.menu} body={recipe.body} />
           )}
         </ul>
       )}
-      {!isFetching && recipes.length === 0 && (
+      {recipes.length === 0 && (
         <div style={{textAlign: 'center', color: '#411c05'}}>
         <h2>등록된 레시피가 없습니다.</h2>
         <p>첫 번째 레시피를 등록해 보세요!</p>
-        </div>
-      )}
-      {/* {isFetching && (
-        <div style={{textAlign: 'center', color: '#411c05'}}>
-        <p>로딩중...</p>
-        </div>
-      )} */}
-      {isFetching && (
-        <div style={{textAlign: 'center', color: '#411c05'}}>
-        <PacmanLoader
-          color={"#3d1f09"}
-          loading={isFetching}
-          cssOverride={{
-            display: "block",
-            margin: "0 auto",
-          }}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
         </div>
       )}
     </>
