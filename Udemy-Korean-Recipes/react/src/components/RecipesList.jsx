@@ -1,7 +1,7 @@
 import Recipe from './Recipe';
 import styles from './RecipesList.module.css';
 import { useEffect, useState } from 'react';
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader"
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 function RecipeList() {
   var [recipes, setRecipes] = useState([]);
@@ -45,21 +45,26 @@ function RecipeList() {
         <p>첫 번째 레시피를 등록해 보세요!</p>
         </div>
       )}
-      {isFetching && (
+      {/* {isFetching && (
         <div style={{textAlign: 'center', color: '#411c05'}}>
         <p>로딩중...</p>
         </div>
-      )}
-      {/* {isFetching && (
-        <ClimbingBoxLoader
-          color={'#432a1b'}
+      )} */}
+      {isFetching && (
+        <div style={{textAlign: 'center', color: '#411c05'}}>
+        <PacmanLoader
+          color={"#3d1f09"}
           loading={isFetching}
-          cssOverride={{margin: "0 auto"}}
-          size={15}
+          cssOverride={{
+            display: "block",
+            margin: "0 auto",
+          }}
+          size={50}
           aria-label="Loading Spinner"
           data-testid="loader"
         />
-      )} */}
+        </div>
+      )}
     </>
   );
 }

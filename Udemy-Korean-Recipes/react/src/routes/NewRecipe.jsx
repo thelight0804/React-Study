@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Modal from '../components/Modal'
 import styles from "./NewRecipe.module.css";
+import { Link } from 'react-router-dom';
 
-function NewRecipe({onCancel, onSetRecipe}){
+function NewRecipe({onSetRecipe}){
     var [enteredBody, setEnteredBody] = useState("");
     var [enteredMenu, setEnteredMenu] = useState("");
 
@@ -38,9 +39,9 @@ function NewRecipe({onCancel, onSetRecipe}){
                     />
                 </p>
                 <p className={styles.actions}>
-                    <button type="button" onClick={onCancel}>
+                    <Link to="/" type="button">
                         취소
-                    </button>
+                    </Link>
                     <button>추가</button>
                 </p>
             </form>

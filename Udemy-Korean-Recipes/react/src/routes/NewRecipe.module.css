@@ -27,6 +27,7 @@
 
 .actions {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     gap: 0.5rem;
 }
@@ -46,11 +47,12 @@
 .actions button:hover {
     background-color: #da9a73;
 }
-  
-.actions button[type='button'] {
+
+.actions a {
     background-color: transparent;
+    text-decoration: none;
+    color: white;
 }
-  
-.actions button[type='button']:hover {
+.actions a:hover {
     color: black;
 }

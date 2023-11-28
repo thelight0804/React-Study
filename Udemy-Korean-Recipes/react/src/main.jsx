@@ -7,12 +7,17 @@ import NewRecipe from './routes/NewRecipe.jsx'
 import RootLayout from './routes/RootLayout.jsx'
 
 const router = createBrowserRouter([
-  { path: '/', element: <RootLayout />,
+  {
+    path: "/",
+    element: <RootLayout />,
     children: [
-      { path: '/', element: <Recipes />, children: [
-        { path: '/create-recipe', element: <NewRecipe /> },
-      ]},
-  ] },
+      {
+        path: "/",
+        element: <Recipes />,
+        children: [{ path: "/create-recipe", element: <NewRecipe /> }],
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
